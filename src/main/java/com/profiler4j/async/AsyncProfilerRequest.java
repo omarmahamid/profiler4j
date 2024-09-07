@@ -5,7 +5,7 @@ public abstract class AsyncProfilerRequest {
     private final String action;
     private final String outputFile;
 
-    public AsyncProfilerRequest(String event, String action, String outputFile) {
+    protected AsyncProfilerRequest(String event, String action, String outputFile) {
         this.event = event;
         this.action = action;
         this.outputFile = outputFile;
