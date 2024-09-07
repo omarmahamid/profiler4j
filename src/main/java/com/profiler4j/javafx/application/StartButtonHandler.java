@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class StartButtonHandler implements IButtonHandler<ActionEvent>{
+public class StartButtonHandler implements IButtonHandler<ActionEvent> {
 
     private final IAsyncProfilerHandler cpuProfiling = new CPUAsyncProfilerHandler();
     private final IAsyncProfilerHandler allocProfiling = new CPUAsyncProfilerHandler();
@@ -24,21 +24,21 @@ public class StartButtonHandler implements IButtonHandler<ActionEvent>{
                 if (duration <= 0) {
                     throw new IllegalArgumentException("duration should be greater than zero");
                 }
-            }catch (Exception e){
-                throw new RuntimeException("please, enter a valid integer number",e);
+            } catch (Exception e) {
+                throw new RuntimeException("please, enter a valid integer number", e);
             }
 
             String selectedOption = ((ComboBox<String>) params[1]).getValue();
 
-            AsyncProfilerRequest asyncProfilerRequest = new StartCPUAsyncProfilerRequest(duration, selectedOption, "/Users/omarmahamid/Desktop/profiling.html");
+            AsyncProfilerRequest asyncProfilerRequest = new StartCPUAsyncProfilerRequest(duration, selectedOption, ((FileState) params[2]).getFilePath());
 
-            if (selectedOption.equals("CPU")){
+            if (selectedOption.equals("CPU")) {
                 try {
                     cpuProfiling.handle(asyncProfilerRequest);
                 } catch (AsyncProfilerException e) {
                     throw new RuntimeException(e);
                 }
-            }else {
+            } else {
                 try {
                     allocProfiling.handle(asyncProfilerRequest);
                 } catch (AsyncProfilerException e) {

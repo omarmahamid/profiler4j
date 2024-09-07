@@ -21,15 +21,15 @@ public class StopButtonHandler implements IButtonHandler<ActionEvent> {
 
             String selectedOption = ((ComboBox<String>) params[0]).getValue();
 
-            AsyncProfilerRequest asyncProfilerRequest = new StopAsyncProfilerRequest(selectedOption, "/Users/omarmahamid/Desktop/profiling");
+            AsyncProfilerRequest asyncProfilerRequest = new StopAsyncProfilerRequest(selectedOption, ((FileState) params[1]).getFilePath());
 
-            if (selectedOption.equals("CPU")){
+            if (selectedOption.equals("CPU")) {
                 try {
                     cpuProfiling.handle(asyncProfilerRequest);
                 } catch (AsyncProfilerException e) {
                     throw new RuntimeException(e);
                 }
-            }else {
+            } else {
                 try {
                     allocProfiling.handle(asyncProfilerRequest);
                 } catch (AsyncProfilerException e) {
@@ -37,6 +37,5 @@ public class StopButtonHandler implements IButtonHandler<ActionEvent> {
                 }
             }
         };
-
     }
 }

@@ -7,9 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 public class ProfilerApplication extends Application {
 
@@ -23,6 +26,8 @@ public class ProfilerApplication extends Application {
 
     private Button startButton;
     private Button stopButton;
+    private Button chooseFileButton;
+    private FileState fileState = new FileState();
     private TextField durationField;
     private ComboBox<String> profilerOptions;
 
@@ -32,8 +37,8 @@ public class ProfilerApplication extends Application {
     public void start(Stage stage) throws Exception {
 
         startButton = ButtonCreator.createButton("START");
-
         stopButton = ButtonCreator.createButton("STOP");
+        chooseFileButton = new Button("Choose File");
 
         durationField = new TextField();
         durationField.setPromptText("Enter duration");
@@ -42,11 +47,32 @@ public class ProfilerApplication extends Application {
         profilerOptions.getItems().addAll("CPU", "ALLOC");
         profilerOptions.setValue("CPU");
 
-        startButton.setOnAction(new StartButtonHandler().handle(durationField, profilerOptions));
-        stopButton.setOnAction(new StopButtonHandler().handle(profilerOptions));
+
+
+
+        chooseFileButton.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+            File selectedFile = fileChooser.showOpenDialog(stage);
+
+            if (selectedFile != null) {
+                fileState.setFilePath(selectedFile.getAbsolutePath());
+                LOGGER.info("Selected file: {}.", fileState.getFilePath());
+            } else {
+                System.out.println("No file selected");
+            }
+        });
+
+
+        startButton.setOnAction(new StartButtonHandler().handle(durationField, profilerOptions, fileState));
+        stopButton.setOnAction(new StopButtonHandler().handle(profilerOptions, fileState));
+
 
         HBox hbox = new HBox(10);
-        hbox.getChildren().addAll(durationField, profilerOptions, startButton, stopButton);
+        hbox.getChildren().addAll(durationField, profilerOptions, startButton, stopButton, chooseFileButton);
 
 
         Scene scene = new Scene(hbox, WINDOW_WIDTH, WINDOW_HEIGHT);
