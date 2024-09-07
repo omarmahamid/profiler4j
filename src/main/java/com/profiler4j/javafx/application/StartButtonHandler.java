@@ -7,6 +7,8 @@ import com.profiler4j.async.StartCPUAsyncProfilerRequest;
 import com.profiler4j.async.exceptions.AsyncProfilerException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 public class StartButtonHandler implements IButtonHandler<ActionEvent>{
 
@@ -18,7 +20,7 @@ public class StartButtonHandler implements IButtonHandler<ActionEvent>{
         return event -> {
             long duration;
             try {
-                duration = Long.parseLong(params[0].toString());
+                duration = Long.parseLong(((TextField) params[0]).getText());
                 if (duration <= 0) {
                     throw new IllegalArgumentException("duration should be greater than zero");
                 }
@@ -26,7 +28,7 @@ public class StartButtonHandler implements IButtonHandler<ActionEvent>{
                 throw new RuntimeException("please, enter a valid integer number",e);
             }
 
-            String selectedOption = params[1].toString();
+            String selectedOption = ((ComboBox<String>) params[1]).getValue();
 
             AsyncProfilerRequest asyncProfilerRequest = new StartCPUAsyncProfilerRequest(duration, selectedOption, "/Users/omarmahamid/Desktop/profiling.html");
 

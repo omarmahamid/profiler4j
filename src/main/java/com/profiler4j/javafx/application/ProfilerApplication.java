@@ -42,8 +42,8 @@ public class ProfilerApplication extends Application {
         profilerOptions.getItems().addAll("CPU", "ALLOC");
         profilerOptions.setValue("CPU");
 
-        startButton.setOnAction(new StartButtonHandler().handle(durationField.getText(), profilerOptions.getValue()));
-        stopButton.setOnAction(new StopButtonHandler().handle(profilerOptions.getValue()));
+        startButton.setOnAction(new StartButtonHandler().handle(durationField, profilerOptions));
+        stopButton.setOnAction(new StopButtonHandler().handle(profilerOptions));
 
         HBox hbox = new HBox(10);
         hbox.getChildren().addAll(durationField, profilerOptions, startButton, stopButton);

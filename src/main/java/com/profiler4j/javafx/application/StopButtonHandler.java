@@ -7,6 +7,7 @@ import com.profiler4j.async.StopAsyncProfilerRequest;
 import com.profiler4j.async.exceptions.AsyncProfilerException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
 
 public class StopButtonHandler implements IButtonHandler<ActionEvent> {
 
@@ -18,7 +19,7 @@ public class StopButtonHandler implements IButtonHandler<ActionEvent> {
     public EventHandler<ActionEvent> handle(Object... params) {
         return event -> {
 
-            String selectedOption = params[0].toString();
+            String selectedOption = ((ComboBox<String>) params[0]).getValue();
 
             AsyncProfilerRequest asyncProfilerRequest = new StopAsyncProfilerRequest(selectedOption, "/Users/omarmahamid/Desktop/profiling");
 
