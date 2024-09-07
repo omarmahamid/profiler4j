@@ -3,11 +3,10 @@ package com.profiler4j.javafx.application;
 import com.profiler4j.async.AsyncProfilerRequest;
 import com.profiler4j.async.CPUAsyncProfilerHandler;
 import com.profiler4j.async.IAsyncProfilerHandler;
+import com.profiler4j.async.StopAsyncProfilerRequest;
 import com.profiler4j.async.exceptions.AsyncProfilerException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
-import static com.profiler4j.async.AsyncProfileActions.START;
 
 public class StopButtonHandler implements IButtonHandler<ActionEvent> {
 
@@ -21,7 +20,7 @@ public class StopButtonHandler implements IButtonHandler<ActionEvent> {
 
             String selectedOption = params[0].toString();
 
-            AsyncProfilerRequest asyncProfilerRequest = new AsyncProfilerRequest(0, selectedOption, START.name(), "/Users/omarmahamid/Desktop/profiling.html");
+            AsyncProfilerRequest asyncProfilerRequest = new StopAsyncProfilerRequest(selectedOption, "/Users/omarmahamid/Desktop/profiling");
 
             if (selectedOption.equals("CPU")){
                 try {

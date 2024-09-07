@@ -3,11 +3,10 @@ package com.profiler4j.javafx.application;
 import com.profiler4j.async.AsyncProfilerRequest;
 import com.profiler4j.async.CPUAsyncProfilerHandler;
 import com.profiler4j.async.IAsyncProfilerHandler;
+import com.profiler4j.async.StartCPUAsyncProfilerRequest;
 import com.profiler4j.async.exceptions.AsyncProfilerException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
-import static com.profiler4j.async.AsyncProfileActions.START;
 
 public class StartButtonHandler implements IButtonHandler<ActionEvent>{
 
@@ -29,7 +28,7 @@ public class StartButtonHandler implements IButtonHandler<ActionEvent>{
 
             String selectedOption = params[1].toString();
 
-            AsyncProfilerRequest asyncProfilerRequest = new AsyncProfilerRequest(duration, selectedOption, START.name(), "/Users/omarmahamid/Desktop/profiling.html");
+            AsyncProfilerRequest asyncProfilerRequest = new StartCPUAsyncProfilerRequest(duration, selectedOption, "/Users/omarmahamid/Desktop/profiling.html");
 
             if (selectedOption.equals("CPU")){
                 try {

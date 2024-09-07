@@ -1,22 +1,16 @@
 package com.profiler4j.async;
 
-public class AsyncProfilerRequest {
-
-    private final long duration;
+public abstract class AsyncProfilerRequest {
     private final String event;
     private final String action;
     private final String outputFile;
 
-    public AsyncProfilerRequest(long duration, String event, String action, String outputFile) {
-        this.duration = duration;
+    public AsyncProfilerRequest(String event, String action, String outputFile) {
         this.event = event;
         this.action = action;
         this.outputFile = outputFile;
     }
 
-    public long getDuration() {
-        return duration;
-    }
 
     public String getEvent() {
         return event;
