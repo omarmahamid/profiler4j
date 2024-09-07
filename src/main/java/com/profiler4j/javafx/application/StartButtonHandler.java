@@ -9,8 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StartButtonHandler implements IButtonHandler<ActionEvent> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartButtonHandler.class);
 
     private final IAsyncProfilerHandler cpuProfiling = new CPUAsyncProfilerHandler();
     private final IAsyncProfilerHandler allocProfiling = new CPUAsyncProfilerHandler();
@@ -19,6 +23,7 @@ public class StartButtonHandler implements IButtonHandler<ActionEvent> {
     public EventHandler<ActionEvent> handle(Object... params) {
         return event -> {
             long duration;
+            String filePathToDump;
             try {
                 duration = Long.parseLong(((TextField) params[0]).getText());
                 if (duration <= 0) {
@@ -30,7 +35,14 @@ public class StartButtonHandler implements IButtonHandler<ActionEvent> {
 
             String selectedOption = ((ComboBox<String>) params[1]).getValue();
 
-            AsyncProfilerRequest asyncProfilerRequest = new StartCPUAsyncProfilerRequest(duration, selectedOption, ((FileState) params[2]).getFilePath());
+            filePathToDump = ((FileState) params[2]).getFilePath();
+
+            if (filePathToDump == null){
+                LOGGER.info("File path to dump is not specified, using default path");
+                filePathToDump = "profiling.html";
+            }
+
+            AsyncProfilerRequest asyncProfilerRequest = new StartCPUAsyncProfilerRequest(duration, selectedOption, filePathToDump);
 
             if (selectedOption.equals("CPU")) {
                 try {

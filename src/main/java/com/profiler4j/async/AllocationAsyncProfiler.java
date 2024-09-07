@@ -26,6 +26,9 @@ public class AllocationAsyncProfiler implements IAsyncProfilerHandler {
             if (AsyncProfileActions.START.name().equals(action)) {
                 asyncProfiler.execute(String.format("start,event=alloc,file=%s", outputFile));
             } else if (AsyncProfileActions.STOP.name().equals(action)) {
+                if (outputFile.contains(".html")) {
+                    outputFile = outputFile.substring(0, outputFile.indexOf(".html"));
+                }
                 asyncProfiler.execute(String.format("stop,file=%s.html", outputFile));
             } else {
                 throw new EventNotSupportedException(String.format("event %s not supported", request.getEvent()));
