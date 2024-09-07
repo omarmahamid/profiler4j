@@ -3,13 +3,22 @@ package com.profiler4j.javafx.ui;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 
+import java.util.ResourceBundle;
+
 public class ButtonCreator {
 
     private ButtonCreator(){
         throw new IllegalStateException("UTILITY CLASS");
     }
 
-    private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
+    private static final String RESOURCE_NAME = "i18n.lang";
+
+    private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.INSTANCE;
+
+    static
+    {
+        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
+    }
 
     public static Button createButton(String langKey, ObservableValue<?>... observables) {
 

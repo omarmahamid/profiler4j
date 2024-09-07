@@ -6,7 +6,7 @@ import javafx.scene.control.Tooltip;
 
 public class TooltipBinding extends ObjectBinding<Tooltip> {
 
-    private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.getInstance();
+    private static final ObservableResourceFactory RESOURCE_FACTORY = ObservableResourceFactory.INSTANCE;
     private final String tooltipKey;
 
     public TooltipBinding(StringProperty text, String tooltipKey) {

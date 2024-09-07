@@ -10,19 +10,11 @@ import java.util.ResourceBundle;
 
 public class ObservableResourceFactory {
 
-
-    private final ObjectProperty<ResourceBundle> resources = new SimpleObjectProperty<>();
+    public static final ObservableResourceFactory INSTANCE = new ObservableResourceFactory();
 
     private ObservableResourceFactory(){}
 
-    public static ObservableResourceFactory getInstance(){
-        return ObservableResourceFactoryHolder.INSTANCE;
-    }
-
-    private static class ObservableResourceFactoryHolder {
-        private static final ObservableResourceFactory INSTANCE = new ObservableResourceFactory();
-    }
-
+    private final ObjectProperty<ResourceBundle> resources = new SimpleObjectProperty<>();
 
     public ObjectProperty<ResourceBundle> resourcesProperty() {
         return resources;
