@@ -62,7 +62,7 @@ public class ProfilerApplication extends Application {
                 fileState.setFilePath(selectedFile.getAbsolutePath());
                 LOGGER.info("Selected file: {}.", fileState.getFilePath());
             } else {
-                System.out.println("No file selected");
+                LOGGER.info("No file selected");
             }
         });
 
